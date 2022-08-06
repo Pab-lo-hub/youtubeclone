@@ -5,20 +5,20 @@ import prisma from 'lib/prisma'
 import { getVideo, getVideos } from 'lib/data.js'
 import timeago from 'lib/timeago'
 import Video from 'components/video'
-
+import Head from 'next/head'
+import Heading from 'components/heading'
 
 export default function SingleVideo({ video, videos }) {
     if (!video) return <p className='text-center p-5'>Video does not exist 😞</p>
 
     return (
         <>
-            <header className='h-14 flex pt-5 px-5 pb-2'>
-                <Link href={`/`}>
-                    <a className='underline'>Home</a>
-                </Link>
-                <div className='grow'></div>
-            </header>
-
+            <Head>
+                <title>{video.title}</title>
+                <meta name='description' content={video.title} />
+                <link rel='icon' href='/favicon.ico' />
+            </Head>
+            <Heading />
             <div className='h-screen flex'>
                 <div className='flex w-full md:w-2/3 flex-col mb-4 border-t border-r border-b border-3 border-black pl-0 bg-black'>
                     <div className='relative pt-[60%]'>
@@ -78,7 +78,7 @@ export async function getServerSideProps(context) {
     video = JSON.parse(JSON.stringify(video))
 
     let videos = await getVideos({}, prisma)
-	videos = JSON.parse(JSON.stringify(videos))
+    videos = JSON.parse(JSON.stringify(videos))
 
     return {
         props: {

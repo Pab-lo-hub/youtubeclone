@@ -1,20 +1,21 @@
+import Head from 'next/head'
 import prisma from 'lib/prisma'
 import { getUser, getVideos } from 'lib/data.js'
 import Videos from 'components/videos'
 import Link from 'next/link'
+import Heading from 'components/heading'
 
 export default function Channel({ user, videos }) {
   if (!user) return <p className='text-center p-5'>Channel does not exist 😞</p>
 
   return (
     <>
-      <header className='h-14 flex pt-5 px-5 pb-2'>
-        <Link href={`/`}>
-          <a className='underline'>Home</a>
-        </Link>
-
-        <div className='grow'></div>
-      </header>
+      <Head>
+        <title>Channel of {user.name}</title>
+        <meta name='description' content={`Channel of ${user.name}`} />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Heading />
       <div>
         <div className='flex justify-between'>
           <div className='flex m-5'>
@@ -37,18 +38,18 @@ export default function Channel({ user, videos }) {
   )
 }
 
-  
-  export async function getServerSideProps(context) {
-    let user = await getUser(context.params.username, prisma)
-    user = JSON.parse(JSON.stringify(user))
-  
-    let videos = await getVideos({ author: user.id }, prisma)
-    videos = JSON.parse(JSON.stringify(videos))
-  
-    return {
-      props: {
-        videos,
-        user,
-      },
-    }
+
+export async function getServerSideProps(context) {
+  let user = await getUser(context.params.username, prisma)
+  user = JSON.parse(JSON.stringify(user))
+
+  let videos = await getVideos({ author: user.id }, prisma)
+  videos = JSON.parse(JSON.stringify(videos))
+
+  return {
+    props: {
+      videos,
+      user,
+    },
   }
+}
