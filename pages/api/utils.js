@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     })
 
     const videoURL =
-      'https://youtubecloneforbootcamp.s3.amazonaws.com/si-bueno.mp4'
+      'https://youtubecloneforbootcamp.s3.amazonaws.com/gol.mp4'
     const thumbnailURL =
       'https://youtubecloneforbootcamp.s3.amazonaws.com/youtube-logo.jpg'
 
@@ -38,10 +38,10 @@ export default async function handler(req, res) {
       return users[randomIndex]
     }
 
-    //create 20 videos, randomly assigned to users
+    //create 5 videos, randomly assigned to users
     let videosCount = 0
 
-    while (videosCount < 10) {
+    while (videosCount < 5) {
       await prisma.video.create({
         data: {
           title: faker.lorem.words(),
