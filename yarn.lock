@@ -1272,6 +1272,13 @@
   "resolved" "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz"
   "version" "2.0.0"
 
+"javascript-time-ago@^2.5.7":
+  "integrity" "sha512-EGvh6K4hpJz0S0aZinbW2EfXDqT/JBB84HfMOFDTzGg7yjpjql9feSgtlG1JQ6b6/NkIxl+PoKSUTEMsatTuTg=="
+  "resolved" "https://registry.npmjs.org/javascript-time-ago/-/javascript-time-ago-2.5.7.tgz"
+  "version" "2.5.7"
+  dependencies:
+    "relative-time-format" "^1.1.4"
+
 "jmespath@0.16.0":
   "integrity" "sha512-9FzQjJ7MATs1tSpnco1K6ayiYE3figslrXA72G2HQ/n76RzvYlofyi5QM+iX4YRs/pu3yzxlVQSST23+dMDknw=="
   "resolved" "https://registry.npmjs.org/jmespath/-/jmespath-0.16.0.tgz"
@@ -1929,6 +1936,11 @@
   "integrity" "sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg=="
   "resolved" "https://registry.npmjs.org/regexpp/-/regexpp-3.2.0.tgz"
   "version" "3.2.0"
+
+"relative-time-format@^1.1.4":
+  "integrity" "sha512-WRWEDEZFTD/95oYMd58kzlYHI6QzexMpPkxvi4/P+NLdzli/tteNonmAa5jYLm8ehJVTGiM2siNg7i1Dkn/gDw=="
+  "resolved" "https://registry.npmjs.org/relative-time-format/-/relative-time-format-1.1.4.tgz"
+  "version" "1.1.4"
 
 "resolve-from@^4.0.0":
   "integrity" "sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g=="
