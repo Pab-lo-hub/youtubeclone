@@ -12,7 +12,7 @@ import { amount } from 'lib/config'
 import { useState } from 'react'
 import LoadMore from 'components/loadmore'
 import { useSession, getSession } from 'next-auth/react'
-import SubscribedButton from 'components/SubscribedButton'
+import SubscribedButton from 'components/subscribedbutton'
 
 export default function Channel({
   user,

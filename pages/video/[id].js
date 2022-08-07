@@ -1,24 +1,38 @@
 import dynamic from 'next/dynamic'
 const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false })
+
 import Link from 'next/link'
+import { useEffect } from 'react'
 import prisma from 'lib/prisma'
 import { getVideo, getVideos } from 'lib/data.js'
 import timeago from 'lib/timeago'
+
 import Video from 'components/video'
-import Head from 'next/head'
 import Heading from 'components/heading'
 
 export default function SingleVideo({ video, videos }) {
     if (!video) return <p className='text-center p-5'>Video does not exist 😞</p>
 
+    useEffect(() => {
+        const incrementViews = async () => {
+            await fetch('/api/view', {
+                body: JSON.stringify({
+                    video: video.id,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            })
+        }
+
+        incrementViews()
+    }, [])
+
     return (
         <>
-            <Head>
-                <title>{video.title}</title>
-                <meta name='description' content={video.title} />
-                <link rel='icon' href='/favicon.ico' />
-            </Head>
             <Heading />
+
             <div className='h-screen flex'>
                 <div className='flex w-full md:w-2/3 flex-col mb-4 border-t border-r border-b border-3 border-black pl-0 bg-black'>
                     <div className='relative pt-[60%]'>
@@ -38,7 +52,7 @@ export default function SingleVideo({ video, videos }) {
                                 <p className='text-2xl font-bold '>{video.title}</p>
 
                                 <div className='text-gray-400'>
-                                    {video.views} views ·{' '}
+                                    {video.views + 1} views ·{' '}
                                     {timeago.format(new Date(video.createdAt))}
                                 </div>
                             </div>
@@ -77,7 +91,7 @@ export async function getServerSideProps(context) {
     let video = await getVideo(context.params.id, prisma)
     video = JSON.parse(JSON.stringify(video))
 
-    let videos = await getVideos({}, prisma)
+    let videos = await getVideos({ take: 3 }, prisma)
     videos = JSON.parse(JSON.stringify(videos))
 
     return {
