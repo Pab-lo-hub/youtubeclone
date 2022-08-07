@@ -3,28 +3,50 @@ import { getVideos } from 'lib/data.js'
 import prisma from 'lib/prisma'
 import Videos from 'components/videos'
 import Heading from 'components/heading'
+import LoadMore from 'components/loadmore'
+import { useState } from 'react'
+import { amount } from 'lib/config'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
-export default function Home({ videos }) {
+export default function Home({ initialVideos }) {
+  const [videos, setVideos] = useState(initialVideos)
+  const [reachedEnd, setReachedEnd] = useState(initialVideos.length < amount)
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  const loading = status === 'loading'
+
+  if (loading) {
+    return null
+  }
+
+  if (session && !session.user.name) {
+    router.push('/setup')
+  }
+
   return (
     <div>
       <Head>
-        <title>YouTube Clone</title>
-        <meta name='description' content='A great YouTube Clone' />
+        <title></title>
+        <meta name='description' content='' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Heading />
-      <header className='h-14 flex pt-5 px-5 pb-2'>
-        <div className='text-xl'>
-          <p>YouTube clone</p>
-        </div>
 
-        <div className='grow'></div>
-      </header>
+      <Heading />
 
       {videos.length === 0 && (
         <p className='flex justify-center mt-20'>No videos found!</p>
       )}
+
       <Videos videos={videos} />
+      {!reachedEnd && (
+        <LoadMore
+          videos={videos}
+          setVideos={setVideos}
+          setReachedEnd={setReachedEnd}
+        />
+      )}
     </div>
   )
 }
@@ -35,7 +57,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      videos,
+      initialVideos: videos,
     },
   }
 }
