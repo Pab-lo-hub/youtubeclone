@@ -7,9 +7,9 @@ import prisma from 'lib/prisma'
 import { getVideos } from 'lib/data.js'
 import { amount } from 'lib/config'
 
-import Videos from 'components/Videos'
-import LoadMore from 'components/LoadMore'
-import Heading from 'components/Heading'
+import Videos from 'components/videos'
+import LoadMore from 'components/loadmore'
+import Heading from 'components/heading'
 
 export default function Subscriptions({ initialVideos }) {
   const { data: session, status } = useSession()
