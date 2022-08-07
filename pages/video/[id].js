@@ -11,8 +11,6 @@ import Video from 'components/video'
 import Heading from 'components/heading'
 
 export default function SingleVideo({ video, videos }) {
-    if (!video) return <p className='text-center p-5'>Video does not exist 😞</p>
-
     useEffect(() => {
         const incrementViews = async () => {
             await fetch('/api/view', {
@@ -28,6 +26,8 @@ export default function SingleVideo({ video, videos }) {
 
         incrementViews()
     }, [])
+
+    if (!video) return <p className='text-center p-5'>Video does not exist 😞</p>
 
     return (
         <>
